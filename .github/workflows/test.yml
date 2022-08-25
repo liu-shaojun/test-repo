@@ -38,4 +38,4 @@ jobs:
     steps:
     - name: echo the variable
       run: |
-        echo "TAG=${{ env.DEFAULT_TAG }}
+        echo "TAG=${{ env.DEFAULT_TAG }}"
