@@ -35,14 +35,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: echo the variable
-      run: |
-        echo "TAG=${{ env.DEFAULT_TAG }}"
     - name: set env
       env:
         DEFAULT_TAG: 'latest'
       run: |
         echo "TAG=${{ github.event.inputs.tag || env.DEFAULT_TAG }} " >> $GITHUB_ENV
+        echo ${TAG}
     - name: Run test
       uses: ./.github/actions/ppml-spark-local-example-tests-on-gramine-action
       with:
