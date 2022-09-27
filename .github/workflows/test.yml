@@ -26,9 +26,7 @@ on:
 permissions:
   contents: read
   packages: write
-  
-env:
-  DEFAULT_TAG: ${{ github.event.inputs.tag }}
+
 
 jobs:
 
@@ -39,3 +37,12 @@ jobs:
     - name: echo the variable
       run: |
         echo "TAG=${{ env.DEFAULT_TAG }}"
+    - name: set env
+      env:
+        DEFAULT_TAG: 'latest'
+      run: |
+        echo "TAG=${{ github.event.inputs.tag || env.DEFAULT_TAG }} " >> $GITHUB_ENV
+    - name: Run test
+      uses: ./.github/actions/ac
+      with:
+        image-tag: ${TAG}
