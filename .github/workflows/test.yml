@@ -43,6 +43,6 @@ jobs:
       run: |
         echo "TAG=${{ github.event.inputs.tag || env.DEFAULT_TAG }} " >> $GITHUB_ENV
     - name: Run test
-      uses: ./.github/actions/ac
+      uses: ./.github/actions/ppml-spark-local-example-tests-on-gramine-action
       with:
         image-tag: ${TAG}
