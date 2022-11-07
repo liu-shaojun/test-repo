@@ -36,13 +36,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: set env
-      env:
-        DEFAULT_TAG: 'latest'
+    - name: bigdl-ppml-gramine-base
       run: |
-        echo "TAG=${{ github.event.inputs.tag || env.DEFAULT_TAG }} " >> $GITHUB_ENV
-        echo ${TAG}
-    - name: Run test
-      uses: ./.github/actions/ppml-spark-local-example-tests-on-gramine-action
-      with:
-        image-tag: ${{env.TAG}}
+        echo ${{ github.workflow }}
+        echo ${{ github.event.pull_request.number }}
+        echo head_ref ${{ github.head_ref }}
+        echo ref ${{ github.ref }}
+        echo ref_name ${{ github.ref_name }}
+        echo base_ref ${{ github.base_ref }}
