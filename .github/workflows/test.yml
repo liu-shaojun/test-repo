@@ -44,3 +44,4 @@ jobs:
         echo ref ${{ github.ref }}
         echo ref_name ${{ github.ref_name }}
         echo base_ref ${{ github.base_ref }}
+        echo run_id ${{ github.run_id }}
