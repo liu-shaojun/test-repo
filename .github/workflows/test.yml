@@ -1,5 +1,10 @@
 name: Manually Build
 
+# Cancel previous runs in the PR when you push new commits
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+  
 on:
   push:
   workflow_dispatch:
@@ -45,3 +50,8 @@ jobs:
         echo ref_name ${{ github.ref_name }}
         echo base_ref ${{ github.base_ref }}
         echo run_id ${{ github.run_id }}
+        sleep 100
+    - name: post action
+      if: ${{ always() }}
+      run: |
+        sleep 100
