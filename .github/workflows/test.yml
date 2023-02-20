@@ -61,3 +61,20 @@ jobs:
       if: ${{ always() }}
       run: |
         sleep 1
+        
+
+  restart_when_failed:
+    name: Restarts the scheduled run when it failed
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && failure()
+    needs: [test_env]
+    steps:
+      - name: Retry the workflow
+        run: |
+          curl -i \
+          -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" \
+          https://api.github.com/repos/estruyf/doctor/actions/workflows/6155745/dispatches \
+          https://api.github.com/repos/liu-shaojun/test-repo/actions/runs/${{ github.run_id }}/rerun-failed-jobs
+          -d '{"ref": "${{ github.ref }}" }'
