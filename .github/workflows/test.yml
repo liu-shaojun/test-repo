@@ -50,6 +50,7 @@ jobs:
         echo ${{ env.Branch }}
         echo ${Branch}
         echo $Branch
+        %$w s
         echo ${{ github.workflow }}
         echo ${{ github.event.pull_request.number }}
         echo head_ref ${{ github.head_ref }}
