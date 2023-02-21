@@ -76,6 +76,5 @@ jobs:
           -X POST \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" \
-          https://api.github.com/repos/estruyf/doctor/actions/workflows/6155745/dispatches \
-          https://api.github.com/repos/liu-shaojun/test-repo/actions/runs/${{ github.run_id }}/rerun-failed-jobs
+          https://api.github.com/repos/liu-shaojun/test-repo/actions/runs/${{ github.run_id }}/rerun-failed-jobs \
           -d '{"ref": "${{ github.ref }}" }'
