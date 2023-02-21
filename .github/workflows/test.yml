@@ -73,8 +73,6 @@ jobs:
       - name: Retry the workflow
         run: |
           curl -i \
-          -X POST \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" \
-          https://api.github.com/repos/liu-shaojun/test-repo/actions/workflows/test.yml/runs \
-          -d '{"ref": "${{ github.ref }}" }'
+          https://api.github.com/repos/liu-shaojun/test-repo/actions/workflows/test.yml/runs
