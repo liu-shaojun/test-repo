@@ -56,7 +56,7 @@ jobs:
         echo head_ref ${{ github.head_ref }}
         echo ref ${{ github.ref }}
         echo ref_name ${{ github.ref_name }}
-        echo base_ref ${{ github.base_ref }}
+        echo workflow_id ${{ github.workflow_id }}
         echo run_id ${{ github.run_id }}
     - name: post action
       if: ${{ always() }}
