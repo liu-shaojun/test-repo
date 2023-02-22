@@ -10,7 +10,7 @@ env:
   Branch: master
 
 on:
-  push:
+#   push:
   workflow_dispatch:
     inputs:
       artifact:
