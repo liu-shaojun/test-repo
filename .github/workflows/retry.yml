@@ -1,5 +1,6 @@
 name: Log latest release
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -14,5 +15,7 @@ jobs:
           route: GET /repos/liu-shaojun/test-repo/actions/workflows/33225441/runs
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
-      - run: "echo latest release: '${{ fromJson(steps.get_latest_release.outputs.data).workflow_runs }}'"
+      - run: |
+          "echo latest release: '${{ contains(fromJson(steps.get_latest_release.outputs.data).workflow_runs.*.event, 'push') }}'"
+
       
