@@ -15,7 +15,8 @@ jobs:
           owner: liu-shaojun
           repo: test-repo
           workflow_id: 33225441
-          headers: '{ "X-GitHub-Api-Version": "2022-11-28", "Authorization": "Bearer ${{ secrets.ACTIONS_PAT }}", "Accept": "application/vnd.github.v3+json" }'
+          mediaType: | # The | is significant!
+            format: json
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: "echo latest release: '${{ steps.get_latest_release.outputs.data }}'"
