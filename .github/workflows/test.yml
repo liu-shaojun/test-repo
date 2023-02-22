@@ -73,5 +73,5 @@ jobs:
       - name: Retry the workflow
         run: |
           echo GITHUB_SHA_SHORT=$(curl -i -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" https://api.github.com/repos/liu-shaojun/test-repo/actions/workflows/test.yml/runs) >> $GITHUB_ENV
-          echo $GITHUB_SHA_SHORT
+          echo ${{ toJSON(fromJSON($GITHUB_SHA_SHORT).jobs.*.id) }}
       
