@@ -17,5 +17,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: |
           "echo latest release: '${{ contains(fromJson(steps.get_latest_release.outputs.data).workflow_runs.*.event, 'push') }}'"
-
+          jq '.workflow_runs[] | select(.event=="push")' --jsonargs steps.get_latest_release.outputs.data
       
