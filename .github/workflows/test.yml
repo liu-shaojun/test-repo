@@ -10,7 +10,7 @@ env:
   Branch: master
 
 on:
-#   push:
+  push:
   workflow_dispatch:
     inputs:
       artifact:
@@ -72,7 +72,6 @@ jobs:
     steps:
       - name: Retry the workflow
         run: |
-          curl -i \
-          -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" \
-          https://api.github.com/repos/liu-shaojun/test-repo/actions/workflows/test.yml/runs
+          response = $(curl -i -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" https://api.github.com/repos/liu-shaojun/test-repo/actions/workflows/test.yml/runs)
+          echo "response - ${{ toJSON(fromJSON(response).jobs.*.id) }}
+      
