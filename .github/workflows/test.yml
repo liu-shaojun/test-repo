@@ -73,5 +73,5 @@ jobs:
       - name: Retry the workflow
         run: |
           response = $(curl -i -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" https://api.github.com/repos/liu-shaojun/test-repo/actions/workflows/test.yml/runs)
-          echo "response - ${{ toJSON(fromJSON(response).jobs.*.id) }}
+          echo "response - ${{ toJSON(fromJSON($response)) }}
       
