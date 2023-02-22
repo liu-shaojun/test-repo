@@ -15,5 +15,5 @@ jobs:
           owner: liu-shaojun
           repo: test-repo
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: "echo latest release: '${{ steps.get_latest_release.outputs.data }}'"
