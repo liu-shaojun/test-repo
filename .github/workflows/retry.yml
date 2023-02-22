@@ -11,9 +11,10 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: get_latest_release
         with:
-          route: GET /repos/{owner}/{repo}/workflows/test.yml/runs
+          route: GET /repos/{owner}/{repo}/workflows/{workflow_id}/runs
           owner: liu-shaojun
           repo: test-repo
+          workflow_id: test.yml
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: "echo latest release: '${{ steps.get_latest_release.outputs.data }}'"
