@@ -11,7 +11,7 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: get_latest_release
         with:
-          route: GET /repos/liu-shaojun/test-repo/workflows/33225441/runs
+          route: GET /repos/liu-shaojun/test-repo/actions/workflows/33225441/runs
           mediaType: | # The | is significant!
             format: json
         env:
