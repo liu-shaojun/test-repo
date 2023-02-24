@@ -18,3 +18,4 @@ jobs:
       - run: |
           run_id=`echo '${{ steps.get_latest_release.outputs.data }}' | jq --arg today $(date -d yesterday +%Y-%m-%d) '.workflow_runs[] | if .event == "schedule" and .status == "completed" and .created_at[:10] == $today then .id else null end | values'`
           echo $run_id
+          echo "RUN_ID=${{ run_id }}" >> $GITHUB_ENV
