@@ -16,5 +16,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: |
-          echo '${{ steps.get_latest_release.outputs.data }}' | jq --arg today $(date +%Y-%m-%d) '.workflow_runs[] | if .event == "workflow_dispatch" and .status == "completed" and .created_at[:10] == $today then .id else "B" end '
-      
+          run_id=`echo '${{ steps.get_latest_release.outputs.data }}' | jq --arg foo $(date +%Y-%m-%d) '.workflow_runs[] | if .event == "workflow_dispatch" and .status == "completed" and .created_at[:10] == $foo then .id else null end | values'`
+          echo $run_id
