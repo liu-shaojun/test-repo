@@ -1,0 +1,31 @@
+name: 'Rerun failed workflow'
+description: 'Rerun failed workflow'
+inputs:
+  workflow_name:
+    description: 'workflow name'
+    required: true
+    default: 'nightly_test.yml'
+runs:
+  using: "composite"
+  steps:
+    - name: get run_id
+      uses: octokit/request-action@v2.x
+      id: get_latest_release
+      with:
+        route: GET /repos/intel-analytics/BigDL/actions/workflows/${{ inputs.workflow_name }}/runs
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
+    - name: parse run_id
+      shell: bash
+      run: |
+        run_id=`echo '${{ steps.get_latest_release.outputs.data }}' | jq --arg today $(date -u +%Y-%m-%d) '.workflow_runs[] | if .event == "schedule" and .status == "completed" and .created_at[:10] == $today then .id else null end | values'`
+        echo $run_id
+        echo "RUN_ID=$run_id" >> $GITHUB_ENV
+    - name: rerun
+      uses: octokit/request-action@v2.x
+      if: ${{ env.RUN_ID }}
+      with:
+        route: POST /repos/intel-analytics/BigDL/actions/runs/{run_id}/rerun-failed-jobs
+        run_id: ${{ env.RUN_ID }} 
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
