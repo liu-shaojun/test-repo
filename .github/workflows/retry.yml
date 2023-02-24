@@ -1,9 +1,11 @@
 name: Log latest release
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+  schedule: 
+    - cron: '0 22 * * *' # GMT time, 22:00 GMT == 07:00 China
+#   push:
+#     branches:
+#       - main
 
 jobs:
   logLatestRelease:
