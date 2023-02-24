@@ -13,6 +13,7 @@ jobs:
   logLatestRelease:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/rerun_failed_workflow
         with:
           workflow_name: 'nightly_test.yml'
