@@ -12,9 +12,9 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: get_latest_release
         with:
-          route: GET /repos/liu-shaojun/test-repo/actions/workflows/retry.yml/runs
+          route: GET /repos/intel-analytics/BigDL/actions/workflows/nightly_test.yml/runs
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: |
-          run_id=`echo '${{ steps.get_latest_release.outputs.data }}' | jq --arg foo $(date +%Y-%m-%d) '.workflow_runs[] | if .event == "workflow_dispatch" and .status == "completed" and .created_at[:10] == $foo then .id else null end | values'`
+          run_id=`echo '${{ steps.get_latest_release.outputs.data }}' | jq --arg today $(date +%Y-%m-%d) '.workflow_runs[] | if .event == "workflow_dispatch" and .status == "completed" and .created_at[:10] == $today then .id else null end | values'`
           echo $run_id
