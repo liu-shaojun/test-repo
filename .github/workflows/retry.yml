@@ -16,6 +16,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: |
-          echo "`jq --args  '.workflow_runs[].event="push"' steps.get_latest_release.outputs.data `"
-         
+          echo steps.get_latest_release.outputs.data | jq .workflow_runs[0]
       
