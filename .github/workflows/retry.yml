@@ -19,3 +19,9 @@ jobs:
           run_id=`echo '${{ steps.get_latest_release.outputs.data }}' | jq --arg today $(date -d yesterday +%Y-%m-%d) '.workflow_runs[] | if .event == "schedule" and .status == "completed" and .created_at[:10] == $today then .id else null end | values'`
           echo $run_id
           echo "RUN_ID=$run_id" >> $GITHUB_ENV
+      - uses: octokit/request-action@v2.x
+        with:
+          route: POST /repos/intel-analytics/BigDL/actions/runs/{run_id}/rerun-failed-jobs
+          run_id: ${{ env.RUN_ID }} 
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
