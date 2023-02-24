@@ -12,7 +12,7 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: get_latest_release
         with:
-          route: GET /repos/intel-analytics/BigDL/actions/workflows/nightly_test.yml/runs
+          route: GET /repos/intel-analytics/BigDL/actions/workflows/nano-nightly-test.yml/runs
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: |
