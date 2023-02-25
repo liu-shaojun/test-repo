@@ -20,7 +20,7 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: get_latest_release
         with:
-          route: GET /repos/intel-analytics/BigDL/actions/workflows/nightly-test.yml/runs
+          route: GET /repos/intel-analytics/BigDL/actions/workflows/nightly_test.yml/runs
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: |
@@ -62,7 +62,7 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: get_latest_release
         with:
-          route: GET /repos/intel-analytics/BigDL/actions/workflows/mac-nightly-test.yml/runs
+          route: GET /repos/intel-analytics/BigDL/actions/workflows/mac_nightly_test.yml/runs
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: |
