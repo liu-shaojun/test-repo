@@ -66,6 +66,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: |
-          run_id=`echo '${{ steps.get_latest_release.outputs.data }}' | jq --arg today $(date -u +%Y-%m-%d) '.workflow_runs[] | if .event == "schedule" and .status == "completed" then .id else null end'`
+          run_id=`echo '${{ steps.get_latest_release.outputs.data }}' | jq --arg today $(date -u +%Y-%m-%d) '.workflow_runs[] '`
           echo $run_id
 
