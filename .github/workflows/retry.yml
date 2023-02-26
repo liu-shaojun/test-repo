@@ -65,7 +65,10 @@ jobs:
           route: GET /repos/intel-analytics/BigDL/actions/workflows/mac_nightly_test.yml/runs
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
-      - run: echo $JSON
+      - run: |
+          testenv=${{ steps.get_latest_release.outputs.data }}
+          echo $testenv
+          echo $JSON
         env:
           JSON: ${{ toJSON(steps.get_latest_release.outputs.data) }}
 
