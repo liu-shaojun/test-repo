@@ -59,16 +59,12 @@ jobs:
   rerun_mac_nightly_test:
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/request-action@v2.x
-        id: get_latest_release
-        with:
-          route: GET /repos/intel-analytics/BigDL/actions/workflows/mac_nightly_test.yml/runs
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
-      - run: |
-          testenv=${{ steps.get_latest_release.outputs.data }}
-          echo $testenv
-          echo $JSON
-        env:
-          JSON: ${{ toJSON(steps.get_latest_release.outputs.data) }}
+      - name: Retry the workflow
+        run: |
+          curl -i -o workspaces.json \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" \
+          https://api.github.com/repos/liu-shaojun/test-repo/actions/workflows/test.yml/runs
+          cat workspaces.json
+        
 
