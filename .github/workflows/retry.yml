@@ -66,5 +66,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: |
-          echo '${{ steps.get_latest_release.outputs.data.workflow_runs[0] }}'
+          echo '{"total_count":192,"workflow_runs":[{"id":4269679778,"name":"Mac Nightly Test","run_number":192,"event":"schedule","status":"completed","conclusion":"failure","workflow_id":40114605,"check_suite_id":11200202181,"check_suite_node_id":"CS_kwDOA_umI88AAAACm5WFxQ","url":"https://api.github.com/repos/intel-analytics/BigDL/actions/runs/4269679778","html_url":"https://github.com/intel-analytics/BigDL/actions/runs/4269679778","pull_requests":[],"created_at":"2023-02-25T11:04:14Z","updated_at":"2023-02-25T16:52:23Z","head_commit":{"id":"47091fb56401d8b956dc0b00197b9bbdf36d2556","tree_id":"21367976e95615e594efed5e8575ffcaf518675e","message":"[PPML]add bigdl jars from bigdl directory rather than /ppml/jars (#7653)","timestamp":"2023-02-25T10:28:29Z","author":{"name":"Shaojie Cui","email":"shaojie.cui@intel.com"},"committer":{"name":"GitHub","email":"noreply@github.com"}}}]}'
 
