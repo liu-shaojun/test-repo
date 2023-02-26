@@ -65,6 +65,7 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" \
           https://api.github.com/repos/liu-shaojun/test-repo/actions/workflows/test.yml/runs
-          jq '.workflow_runs[]' workspaces.json 
+          echo 123
+          cat workspaces.json 
         
 
