@@ -65,6 +65,8 @@ jobs:
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" \
           https://api.github.com/repos/liu-shaojun/test-repo/actions/workflows/test.yml/runs
-          cat workspaces.json | jq '.workflow_runs[]'
+          run_id=`cat workspaces.json | jq --arg today $(date -u +%Y-%m-%d) '.workflow_runs[] | if .event == "schedule" and .status == "completed" and .created_at[:10] == $today then .id else null end | values'`
+          echo $run_id
+          echo "RUN_ID=$run_id" >> $GITHUB_ENV
         
 
