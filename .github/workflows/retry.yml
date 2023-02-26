@@ -66,5 +66,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: |
-          echo '${{ steps.get_latest_release.outputs.data.workflow_runs }}'
+          echo '${{ toJson(fromJson(steps.get_latest_release.outputs.data).workflow_runs) }}'
 
