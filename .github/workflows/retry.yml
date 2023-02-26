@@ -66,5 +66,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
       - run: |
-          run_id=`echo '${{ toJson(fromJson(steps.get_latest_release.outputs.data).workflow_runs.*) }}'`
+          run_id=`echo '${{ toString(steps.get_latest_release.outputs.data) }}'`
           echo $run_id
