@@ -67,6 +67,7 @@ jobs:
           run_id=`cat workspaces.json | jq --arg today $(date -u +%Y-%m-%d) '.workflow_runs[] | if .event == "schedule" and .status == "completed" and .created_at[:10] == $today then .id else null end | values'`
           echo $run_id
           echo "RUN_ID=$run_id" >> $GITHUB_ENV
+          cat workspaces.json
           rm -f workspaces.json
       - name: rerun failed workflow
         uses: octokit/request-action@v2.x
