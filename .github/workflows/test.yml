@@ -11,30 +11,9 @@ env:
   Branch: master
 
 on:
-  push:
   schedule:
     - cron: '1 * * * *' # GMT time, 15:30 GMT == 23:30 China
-  workflow_dispatch:
-    inputs:
-      artifact:
-        description: 'select which job to run("all" will make all jobs run)'
-        required: true
-        default: 'all'
-        type: choice
-        options:
-        - all
-        - docker-bigdl-ppml-trusted-big-data-ml-python-gramine
-        - docker-bigdl-ppml-trusted-big-data-ml-python-graphene
-        - docker-bigdl-ppml-trusted-big-data-ml-scala-occlum
-        - docker-bigdl-ppml-trusted-realtime-ml-scala-graphene
-        - docker-bigdl-ppml-trusted-realtime-ml-scala-occlum
-        - docker-kmsutil
-        - docker-pccs
-      tag:
-        description: 'docker image tag (e.g. 2.1.0-SNAPSHOT)'
-        required: true
-        default: 'latest'
-        type: string
+
 
 permissions:
   contents: read
@@ -53,28 +32,5 @@ jobs:
         echo ${{ env.Branch }}
         echo ${Branch}
         echo $Branch
-        %$w s
-        echo ${{ github.workflow }}
-        echo ${{ github.event.pull_request.number }}
-        echo head_ref ${{ github.head_ref }}
-        echo ref ${{ github.ref }}
-        echo ref_name ${{ github.ref_name }}
-        echo workflow_id ${{ github.workflow_id }}
-        echo run_id ${{ github.run_id }}
-    - name: post action
-      if: ${{ always() }}
-      run: |
-        sleep 1
-        
 
-  restart_when_failed:
-    name: Restarts the scheduled run when it failed
-    runs-on: ubuntu-latest
-    if: failure()
-    needs: [test_env]
-    steps:
-      - name: Retry the workflow
-        run: |
-          echo GITHUB_SHA_SHORT=$(curl -i -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" https://api.github.com/repos/liu-shaojun/test-repo/actions/workflows/test.yml/runs) >> $GITHUB_ENV
-          echo ${{ toJSON(fromJSON($GITHUB_SHA_SHORT).jobs.*.id) }}
-      
+
