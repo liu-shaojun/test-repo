@@ -4,13 +4,16 @@ name: Manually Build
 # concurrency:
 #   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
 #   cancel-in-progress: true
-  
+
+
 env:
   #Branch: ${{ github.event.inputs.branch }}
   Branch: master
 
 on:
   push:
+  schedule:
+    - cron: '1 * * * *' # GMT time, 15:30 GMT == 23:30 China
   workflow_dispatch:
     inputs:
       artifact:
