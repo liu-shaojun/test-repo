@@ -11,8 +11,9 @@ env:
   Branch: master
 
 on:
+
   schedule:
-    - cron: '*/5 * * * *'  # GMT time, 15:30 GMT == 23:30 China
+    - cron: '*/6 * * * *'  # GMT time, 15:30 GMT == 23:30 China
 
 
 permissions:
