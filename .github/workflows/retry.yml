@@ -122,4 +122,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
         
-
+  rerun_chronos_nightly_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get run_id
+        run: |
+          curl -o workspaces.json \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" \
+          https://api.github.com/repos/intel-analytics/BigDL/actions/workflows/chronos-nb-python-spark31.yml/runs
+          run_id=`cat workspaces.json | jq --arg today $(date -u +%Y-%m-%d) '.workflow_runs[] | if .event == "schedule" and .status == "completed" and .created_at[:10] == $today then .id else null end | values'`
+          echo $run_id
+          echo "RUN_ID=$run_id" >> $GITHUB_ENV
+          rm -f workspaces.json
+      - name: rerun failed workflow
+        uses: octokit/request-action@v2.x
+        if: ${{ env.RUN_ID }}
+        with:
+          route: POST /repos/intel-analytics/BigDL/actions/runs/{run_id}/rerun-failed-jobs
+          run_id: ${{ env.RUN_ID }} 
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
