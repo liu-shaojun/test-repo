@@ -29,7 +29,6 @@ services:
     env:
      - INSECURE=true
     binds.add:
-      # this will keep all of the existing ones as well
       - /:/var/tmp/root
   - name: rngd
     image: linuxkit/rngd:310c16ec5315bd07d4b8f5332cfa7dc5cbc7d368
