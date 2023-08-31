@@ -18,11 +18,6 @@ onboot:
   - name: mount
     image: linuxkit/mount:f671cb94a8999a65e33b3fe79f3def58e3d58b07
     command: ["/usr/bin/mountie", "/dev/nvme1n1", "/var/secure_storage"]
-  - name: bbox
-    image: busybox
-    command: ["sh", "-c", "echo 'secret things' > /var/secure_storage/secrets"]
-    binds:
-      - /var:/var
 services:
   - name: getty
     image: linuxkit/getty:06f34bce0facea79161566d67345c3ea49965437
@@ -40,6 +35,15 @@ services:
     image: intelanalytics/bigdl-ppml-trusted-bigdl-llm-tdx:debug
     capabilities:
      - all
+    devices:
+     - path: "/dev/tdx_guest"
+       type: c
+       major: 10
+       minor: 126
+       mode: "0660"
+    binds.add:
+      - /dev:/dev
+      - /etc/resolv.conf:/etc/resolv.conf
     env:
      - ATTESTATION=true
      - ATTESTATION_URL=xx.xx.xx.xx:xxxx
@@ -51,15 +55,6 @@ services:
      - KMS_PRIMARY_KEY=llm-demo
      - KMS_DATA_KEY=model-key
      - BASE64_MODEL_IV=xxxxxxxxxxxxxx
-    devices:
-     - path: "/dev/tdx_guest"
-       type: c
-       major: 10
-       minor: 126
-       mode: "0660"
-    binds.add:
-      - /dev:/dev
-      - /etc/resolv.conf:/etc/resolv.conf
 files:
   - path: root/.ssh/authorized_keys
     source: ~/.ssh/id_rsa.pub
