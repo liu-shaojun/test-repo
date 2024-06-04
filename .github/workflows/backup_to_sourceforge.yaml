@@ -70,7 +70,6 @@ jobs:
         cd wheels
         pwd
         ls
-        sshpass -p "${{ env.SOURCEFORGE_PW }}" rsync -avz \
-        --progress \
-        -e "ssh -o StrictHostKeyChecking=no" \
-        wheels/*.whl  intelanalytics@frs.sourceforge.net:/home/frs/project/analytics-zoo/bigdl-llm-whl/bigdl-core-xe-batch-21/${{ env.WHL_VERSION }}/
+        sshpass -p "${{ secrets.SOURCEFORGE_PW }}" scp -o StrictHostKeyChecking=no -r \
+        -P 22 \
+        wheels/*.whl  intelanalytics@frs.sourceforge.net:/home/frs/project/analytics-zoo/bigdl-llm-whl/bigdl-core-xe-batch-21/${{ env.WHL_VERSION }}
