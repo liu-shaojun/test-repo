@@ -55,6 +55,7 @@ jobs:
 
     - name: Download wheel files
       run: |
+        cd wheels
         pwd
         wget --no-check-certificate -i wheel_links.txt
         ls
