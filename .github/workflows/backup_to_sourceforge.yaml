@@ -67,6 +67,7 @@ jobs:
 
     - name: Upload Wheels to SourceForge
       run: |
+        cd wheels
         pwd
         ls
         sshpass -p "${{ env.SOURCEFORGE_PW }}" rsync -avz \
