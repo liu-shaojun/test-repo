@@ -81,5 +81,5 @@ jobs:
         pwd
         ls
         rsync -avzr -v \
-        -e "sshpass -p '${{ secrets.SOURCEFORGE_PW }}' ssh -vvv -o StrictHostKeyChecking=no -o ProxyCommand='connect-proxy -S child-prc.intel.com:1080 %h %p'" \
+        -e "sshpass -p '1234qwer!@#$QWER' ssh -vvv -o StrictHostKeyChecking=no -o ProxyCommand='connect-proxy -S child-prc.intel.com:1080 %h %p'" \
         wheels/*.whl  intelanalytics@frs.sourceforge.net:/home/frs/project/analytics-zoo/bigdl-llm-whl/bigdl-core-xe-batch-21/${{ env.WHL_VERSION }}/
