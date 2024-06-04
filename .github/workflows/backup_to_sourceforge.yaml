@@ -69,5 +69,5 @@ jobs:
       run: |
         pwd
         ls
-        sshpass -p "1234qwer!@#$QWER" scp -vvv -o StrictHostKeyChecking=no -r \
+        sshpass -p '${{ secrets.SOURCEFORGE_PW }}' scp -vvv -o StrictHostKeyChecking=no -r \
         wheels/*.whl  intelanalytics@frs.sourceforge.net:/home/frs/project/analytics-zoo/bigdl-llm-whl/bigdl-core-xe-batch-21/${{ env.WHL_VERSION }}
