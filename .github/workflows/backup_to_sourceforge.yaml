@@ -23,6 +23,8 @@ jobs:
 
     - name: Fetch wheel links
       run: |
+        mkdir wheels
+        cd wheels
         python <<EOF
         import requests
         from bs4 import BeautifulSoup
