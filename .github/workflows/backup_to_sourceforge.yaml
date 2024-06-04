@@ -65,11 +65,20 @@ jobs:
         ls
         pwd
 
-    - name: Upload Wheels to SourceForge
-      run: |
-        pwd
-        ls
-        sshpass -p '${{ secrets.SOURCEFORGE_PW }}' rsync -avz \
-        --progress \
-        -e "ssh -vvv -o StrictHostKeyChecking=no" \
-        wheels/*.whl  intelanalytics@frs.sourceforge.net:/home/frs/project/analytics-zoo/bigdl-llm-whl/bigdl-core-xe-batch-21/${{ env.WHL_VERSION }}/
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: frs.sourceforge.net
+        username: intelanalytics
+        password: ${{ secrets.SOURCEFORGE_PW }}
+        source: "wheels/bigdl_core_xe_batch_21-2.5.0b20240603-cp310-cp310-manylinux2010_x86_64.whl"
+        target: /home/frs/project/analytics-zoo/bigdl-llm-whl/bigdl-core-xe-batch-21/${{ env.WHL_VERSION }}/
+        
+    # - name: Upload Wheels to SourceForge
+    #   run: |
+    #     pwd
+    #     ls
+    #     sshpass -p '${{ secrets.SOURCEFORGE_PW }}' rsync -avz \
+    #     --progress \
+    #     -e "ssh -vvv -o StrictHostKeyChecking=no" \
+    #     wheels/*.whl  intelanalytics@frs.sourceforge.net:/home/frs/project/analytics-zoo/bigdl-llm-whl/bigdl-core-xe-batch-21/${{ env.WHL_VERSION }}/
