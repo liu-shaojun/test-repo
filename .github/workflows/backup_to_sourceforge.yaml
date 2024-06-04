@@ -81,6 +81,6 @@ jobs:
         pwd
         ls
         SOURCEFORGE_PW='1234qwer!@#$QWER'
-        rsync -avzr \
-        -e "sshpass -p $SOURCEFORGE_PW ssh -vvv -o StrictHostKeyChecking=no " \
+        rsync -avzr -v \
+        -e "sshpass -p $SOURCEFORGE_PW ssh -o StrictHostKeyChecking=no " \
         wheels/*.whl  intelanalytics@frs.sourceforge.net:/home/frs/project/analytics-zoo/bigdl-llm-whl/bigdl-core-xe-batch-21/2.5.0b202406031/
