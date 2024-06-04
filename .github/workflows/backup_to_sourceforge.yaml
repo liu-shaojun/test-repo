@@ -28,6 +28,7 @@ jobs:
 
     - name: Fetch wheel links
       run: |
+        rm -rf wheels
         mkdir wheels
         cd wheels
         pwd
