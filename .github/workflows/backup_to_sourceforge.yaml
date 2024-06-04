@@ -25,6 +25,7 @@ jobs:
       run: |
         mkdir wheels
         cd wheels
+        pwd
         python <<EOF
         import requests
         from bs4 import BeautifulSoup
@@ -48,9 +49,13 @@ jobs:
             for wheel_link in wheel_links:
                 f.write(f"{wheel_link}\n")
         EOF
+        ls
+        pwd
+      
 
     - name: Download wheel files
       run: |
+        pwd
         wget --no-check-certificate -i wheel_links.txt
         ls
         pwd
