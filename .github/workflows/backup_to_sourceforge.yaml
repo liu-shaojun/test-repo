@@ -79,7 +79,6 @@ jobs:
       run: |
         pwd
         ls
-        sshpass -p '${{ secrets.SOURCEFORGE_PW }}' rsync -avz \
-        --progress \
-        -e "ssh -vvv -o StrictHostKeyChecking=no -o ProxyCommand='connect-proxy -S child-prc.intel.com:1080 %h %p'" \
+        rsync -avzr \
+        -e "sshpass -p ${{ secrets.SOURCEFORGE_PW }} ssh -o StrictHostKeyChecking=no -o ProxyCommand='connect-proxy -S child-prc.intel.com:1080 %h %p'" \
         wheels/*.whl  intelanalytics@frs.sourceforge.net:/home/frs/project/analytics-zoo/bigdl-llm-whl/bigdl-core-xe-batch-21/${{ env.WHL_VERSION }}/
