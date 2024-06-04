@@ -67,7 +67,6 @@ jobs:
 
     - name: Upload Wheels to SourceForge
       run: |
-        cd wheels
         pwd
         ls
         sshpass -p "${{ secrets.SOURCEFORGE_PW }}" scp -o StrictHostKeyChecking=no -r \
