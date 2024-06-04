@@ -12,7 +12,7 @@ jobs:
     #runs-on: ubuntu-latest
 
     env:
-      SOURCEFORGE_PW: ${{ secrets.SOURCEFORGE_PW }}
+      SOURCEFORGE_PW: '${{ secrets.SOURCEFORGE_PW }}'
       WHL_VERSION: "2.5.0b20240603"  # 将版本号存储在环境变量中
 
     steps:
