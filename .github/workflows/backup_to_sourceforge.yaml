@@ -8,8 +8,8 @@ on:
 
 jobs:
   download:
-    # runs-on: [arc12]
-    runs-on: ubuntu-latest
+    runs-on: [arc12]
+    # runs-on: ubuntu-latest
 
     env:
       SOURCEFORGE_PW: '${{ secrets.SOURCEFORGE_PW }}'
@@ -82,5 +82,5 @@ jobs:
         ls
         SOURCEFORGE_PW='1234qwer!@#$QWER'
         rsync -avzr -v \
-        -e "sshpass -p $SOURCEFORGE_PW ssh -o StrictHostKeyChecking=no " \
+        -e "sshpass -p $SOURCEFORGE_PW ssh -o StrictHostKeyChecking=no -o ProxyCommand='connect-proxy -S child-prc.intel.com:1080 %h %p'" \
         wheels/*.whl  intelanalytics@frs.sourceforge.net:/home/frs/project/analytics-zoo/bigdl-llm-whl/bigdl-core-xe-batch-21/2.5.0b202406031/
