@@ -70,5 +70,4 @@ jobs:
         pwd
         ls
         sshpass -p "${{ secrets.SOURCEFORGE_PW }}" scp -vvv -o StrictHostKeyChecking=no -r \
-        -P 22 \
         wheels/*.whl  intelanalytics@frs.sourceforge.net:/home/frs/project/analytics-zoo/bigdl-llm-whl/bigdl-core-xe-batch-21/${{ env.WHL_VERSION }}
