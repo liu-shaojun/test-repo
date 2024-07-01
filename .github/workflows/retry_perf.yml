@@ -1,8 +1,8 @@
 name: Rerun failed workflows
 on:
   workflow_dispatch:
-  schedule: 
-    - cron: '*/5 * * * *' # GMT time, 21:03 GMT == 06:03 China
+  # schedule: 
+  #   - cron: '*/5 * * * *' # GMT time, 21:03 GMT == 06:03 China
   push:
     branches:
       - main
