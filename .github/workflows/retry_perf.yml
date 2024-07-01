@@ -2,7 +2,7 @@ name: Rerun failed workflows
 on:
   workflow_dispatch:
   schedule: 
-    - cron: '3 21 * * *' # GMT time, 21:03 GMT == 06:03 China
+    - cron: '38 14 * * *' # GMT time, 21:03 GMT == 06:03 China
   push:
     branches:
       - main
@@ -15,20 +15,21 @@ jobs:
     steps:
       - name: Get run_id
         run: |
-          curl -o workspaces.json \
-          -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" \
-          https://api.github.com/repos/intel-analytics/BigDL/actions/workflows/llm_performance_tests.yml/runs
-          run_id=`cat workspaces.json | jq --arg today $(date -u +%Y-%m-%d) '.workflow_runs[] | if .event == "schedule" and .status == "completed" and .created_at[:10] == $today then .id else null end | values'`
-          echo $run_id
-          echo "RUN_ID=$run_id" >> $GITHUB_ENV
-          rm -f workspaces.json
-      - name: rerun failed workflow
-        uses: octokit/request-action@v2.x
-        if: ${{ env.RUN_ID }}
-        with:
-          route: POST /repos/intel-analytics/BigDL/actions/runs/{run_id}/rerun-failed-jobs
-          run_id: ${{ env.RUN_ID }} 
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
+          echo ${{ github.event.schedule }}
+      #     curl -o workspaces.json \
+      #     -H "Accept: application/vnd.github.v3+json" \
+      #     -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" \
+      #     https://api.github.com/repos/intel-analytics/BigDL/actions/workflows/llm_performance_tests.yml/runs
+      #     run_id=`cat workspaces.json | jq --arg today $(date -u +%Y-%m-%d) '.workflow_runs[] | if .event == "schedule" and .status == "completed" and .created_at[:10] == $today then .id else null end | values'`
+      #     echo $run_id
+      #     echo "RUN_ID=$run_id" >> $GITHUB_ENV
+      #     rm -f workspaces.json
+      # - name: rerun failed workflow
+      #   uses: octokit/request-action@v2.x
+      #   if: ${{ env.RUN_ID }}
+      #   with:
+      #     route: POST /repos/intel-analytics/BigDL/actions/runs/{run_id}/rerun-failed-jobs
+      #     run_id: ${{ env.RUN_ID }} 
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
         
