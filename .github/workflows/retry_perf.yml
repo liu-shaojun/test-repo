@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Get run_id
         run: |
-          echo ${{ github.event.schedule }}
+          echo ${{ github.event.schedule && true }}
       #     curl -o workspaces.json \
       #     -H "Accept: application/vnd.github.v3+json" \
       #     -H "Authorization: token ${{ secrets.ACTIONS_PAT }}" \
