@@ -84,13 +84,6 @@ on:
         type: boolean
         default: true
   workflow_call:
-    secrets:
-      GAT_CI:
-        required: true
-      PYPI_USERNAME: 
-        required: true
-      PYPI_PASSWORD: 
-        required: true
     inputs:
       pypi-version:
         description: 'pypi version (e.g. 2.5.0.dev0)'
