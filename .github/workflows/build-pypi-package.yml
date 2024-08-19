@@ -147,7 +147,7 @@ jobs:
 
   release-bigdl-core-xe:
     runs-on: ubuntu-latest
-    if: ${{ ( github.event_name == 'workflow_dispatch' && inputs.release-bigdl-core-xe ) || needs.paths-filter.outputs.xe == 'true'}} 
+    if: ${{ ( github.event.schedule && inputs.release-bigdl-core-xe ) || ( github.event_name == 'workflow_dispatch' && inputs.release-bigdl-core-xe ) || needs.paths-filter.outputs.xe == 'true'}} 
     strategy:
       fail-fast: false
       matrix:
