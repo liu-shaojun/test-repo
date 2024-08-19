@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   trigger-bigdl-core-xxx-for-py311:
-    uses: liu-shaojun/test-repo/.github/workflows/build-pypi-package.yml@main
+    uses: ./.github/workflows/build-pypi-package.yml
     with:
       python-version: '3.11'
       pypi-version: ${{ (github.event_name == 'schedule') && '' || ( github.event_name == 'workflow_dispatch' ) && inputs.pypi-version }}
@@ -25,6 +25,4 @@ jobs:
       release-bigdl-core-xe-batch: true
       release-bigdl-core-xe-batch-win: true
       release-bigdl-core-xe-addons-for-linux-and-windows: true
-      release-bigdl-core-cpp: true
-      release-bigdl-core-cpp-win: true
-      release-bigdl-core-npu-win: true
+
