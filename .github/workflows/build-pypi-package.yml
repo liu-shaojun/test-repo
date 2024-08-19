@@ -129,7 +129,7 @@ on:
         description: "If trigger release job for bigdl-core-cpp"
         required: false
         type: boolean
-        default: true
+        default: false
       release-bigdl-core-cpp-win:
         description: "If trigger release job for bigdl-core-cpp-win"
         required: false
@@ -148,6 +148,28 @@ jobs:
   release-bigdl-core-xe:
     runs-on: ubuntu-latest
     if: ${{ ( github.event.schedule && inputs.release-bigdl-core-xe ) || ( github.event_name == 'workflow_dispatch' && inputs.release-bigdl-core-xe ) || needs.paths-filter.outputs.xe == 'true'}} 
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["${{ inputs.python-version || '3.11' }}"]
+        oneapi-version: ["2024.0"]
+    steps:     
+      - name: Install build dependencies & build wheel
+        shell: bash
+        run: |
+          if [ ${{ github.event_name }} == "workflow_dispatch" ]; then
+            export nb_version=${{ inputs.pypi-version }}
+          else
+            export TIMESTAMP=`date '+%Y%m%d'`
+            export PYPI_VERSION=2.5.0
+            nb_version=${PYPI_VERSION}b${TIMESTAMP}
+          fi
+          echo ${nb_version}
+          echo  ${{ inputs.release-bigdl-core-cpp }}
+
+  release-bigdl-core-xe-1:
+    runs-on: ubuntu-latest
+    if: ${{ ( github.event.schedule && inputs.release-bigdl-core-cpp == 'true' ) || ( github.event_name == 'workflow_dispatch' && inputs.release-bigdl-core-xe ) || needs.paths-filter.outputs.xe == 'true'}} 
     strategy:
       fail-fast: false
       matrix:
