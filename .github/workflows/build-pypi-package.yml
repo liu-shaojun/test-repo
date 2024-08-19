@@ -165,3 +165,4 @@ jobs:
             nb_version=${PYPI_VERSION}b${TIMESTAMP}
           fi
           echo ${nb_version}
+          echo  ${{ inputs.release-bigdl-core-cpp }}
