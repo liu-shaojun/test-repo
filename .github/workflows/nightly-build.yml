@@ -4,7 +4,7 @@ name: LLM Nightly Build & Release
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   schedule:
-    - cron: '*/6 * * * *' # GMT time, 6:50 GMT == 12:50 China
+    - cron: '*/5 * * * *' # GMT time, 6:50 GMT == 12:50 China
   workflow_dispatch:
     inputs:
       pypi-version:
