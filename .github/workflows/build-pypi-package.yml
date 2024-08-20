@@ -41,28 +41,28 @@ on:
         description: "If trigger release job for bigdl-core-xe"
         required: false
         type: boolean
-        default: true
+        default: false
       release-bigdl-core-xe-win:
         description: "If trigger release job for bigdl-core-xe-win"
         required: false
         type: boolean
-        default: true
+        default: false
       release-bigdl-core-xe-batch:
         description: "If trigger release job for bigdl-core-xe-batch"
         required: false
         type: boolean
-        default: true
+        default: false
       release-bigdl-core-xe-batch-win:
         description: "If trigger release job for bigdl-core-xe-batch-win"
         required: false
         type: boolean
-        default: true
+        default: false
       # The maximum inputs that the worflow_dispatch accepts is only 10, so we use release-bigdl-core-xe-addons-for-linux-and-windows to trigger both bigdl-core-xe-addons and bigdl-core-xe-addons-win
       release-bigdl-core-xe-addons-for-linux-and-windows:
         description: "If trigger release job for bigdl-core-xe-addons and bigdl-core-xe-addons-win"
         required: false
         type: boolean
-        default: true
+        default: false
       # release-bigdl-core-xe-addons-win:
       #   description: "If trigger release job for bigdl-core-xe-addons-win"
       #   required: false
@@ -72,17 +72,17 @@ on:
         description: "If trigger release job for bigdl-core-cpp"
         required: false
         type: boolean
-        default: true
+        default: false
       release-bigdl-core-cpp-win:
         description: "If trigger release job for bigdl-core-cpp-win"
         required: false
         type: boolean
-        default: true
+        default: false
       release-bigdl-core-npu-win:
         description: "If trigger release job for bigdl-core-npu-win"
         required: false
         type: boolean
-        default: true
+        default: false
   workflow_call:
     inputs:
       pypi-version:
@@ -99,27 +99,27 @@ on:
         description: "If trigger release job for bigdl-core-xe"
         required: false
         type: boolean
-        default: true
+        default: false
       release-bigdl-core-xe-win:
         description: "If trigger release job for bigdl-core-xe-win"
         required: false
         type: boolean
-        default: true
+        default: false
       release-bigdl-core-xe-batch:
         description: "If trigger release job for bigdl-core-xe-batch"
         required: false
         type: boolean
-        default: true
+        default: false
       release-bigdl-core-xe-batch-win:
         description: "If trigger release job for bigdl-core-xe-batch-win"
         required: false
         type: boolean
-        default: true
+        default: false
       release-bigdl-core-xe-addons-for-linux-and-windows:
         description: "If trigger release job for bigdl-core-xe-addons and bigdl-core-xe-addons-win"
         required: false
         type: boolean
-        default: true
+        default: false
       # release-bigdl-core-xe-addons-win:
       #   description: "If trigger release job for bigdl-core-xe-addons-win"
       #   required: false
@@ -134,12 +134,12 @@ on:
         description: "If trigger release job for bigdl-core-cpp-win"
         required: false
         type: boolean
-        default: true
+        default: false
       release-bigdl-core-npu-win:
         description: "If trigger release job for bigdl-core-npu-win"
         required: false
         type: boolean
-        default: true
+        default: false
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -147,7 +147,7 @@ jobs:
 
   release-bigdl-core-xe:
     runs-on: ubuntu-latest
-    if: ${{ ( github.event.schedule && inputs.release-bigdl-core-xe ) || ( github.event_name == 'workflow_dispatch' && (inputs.release-bigdl-core-xe == 'true')) || needs.paths-filter.outputs.xe == 'true'}} 
+    if: ${{ ( github.event.schedule && inputs.release-bigdl-core-xe ) || ( github.event_name == 'workflow_dispatch' && inputs.release-bigdl-core-xe )) || ((github.event_name == 'push' || github.event_name == 'pull_request') && needs.paths-filter.outputs.xe == 'true') }} 
     strategy:
       fail-fast: false
       matrix:
@@ -157,6 +157,7 @@ jobs:
       - name: Install build dependencies & build wheel
         shell: bash
         run: |
+          echo ${{ github.event.schedule }}
           if [ ${{ github.event_name }} == "workflow_dispatch" ]; then
             export nb_version=${{ inputs.pypi-version }}
           else
