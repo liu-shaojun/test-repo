@@ -18,6 +18,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/nightly-build.yml"
+      - ".github/workflows/build-pypi-package.yml"
       - ".github/actions/bigdl-core-xe-build/**"
       - ".github/actions/bigdl-core-xe-build-win/**"
       - "bigdl-core-xe/**"
