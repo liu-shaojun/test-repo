@@ -159,6 +159,7 @@ jobs:
         shell: bash
         run: |
           echo ${{ github.event.schedule }}
+          sleep 20s
           if [ ${{ github.event_name }} == "workflow_dispatch" ]; then
             export nb_version=${{ inputs.pypi-version }}
           else
@@ -181,6 +182,7 @@ jobs:
       - name: Install build dependencies & build wheel
         shell: bash
         run: |
+          jisd
           if [ ${{ github.event_name }} == "workflow_dispatch" ]; then
             export nb_version=${{ inputs.pypi-version }}
           else
