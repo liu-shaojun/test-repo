@@ -27,6 +27,8 @@ jobs:
       release-bigdl-core-xe-addons-for-linux-and-windows: true
 
   trigger-bigdl-core-xxx-for-py310:
+    needs: trigger-bigdl-core-xxx-for-py311
+    if: ${{ !cancelled() }}
     uses: ./.github/workflows/build-pypi-package.yml
     with:
       python-version: '3.11'
